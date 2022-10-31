@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    var emojis = ["✈️", "🚗", "🚀", "🛥️", "🚘", "⛵️", "🚂", "🛵", "🚆", "🚇", "🚋", "🚜", "🚕", "🛴", "🛺", "🚲", "🏎️", "🚁", "🚃", "🚓", "🚒", "🚑", "🚌", "🚎", "🏍️", "🛻", "🛞", "🛳️", "🚅", "🛩️", "🚛", "🚙"]
-    @State var emojiCount = 15
+    let vehicleEmogis = ["✈️", "🚗", "🚀", "🛥️", "🚘", "⛵️", "🚂", "🛵", "🚆", "🚇", "🚋", "🚜", "🚕", "🛴", "🛺", "🚲", "🏎️", "🚁", "🚃", "🚓", "🚒", "🚑", "🚌", "🚎", "🏍️", "🛻", "🛞", "🛳️", "🚅", "🛩️", "🚛", "🚙"]
+    let helloweenEmojis = ["😈", "💀", "👻", "👽", "🎃", "👀", "🧛🏼‍♂️", "🧟‍♂️", "🧌", "🦇", "🐺", "🦂", "🪳", "🌙", "⚰️", "🪦", "🔮"]
+    let flagEmojis = ["🏳️‍🌈", "🇺🇳", "🇦🇹", "🇧🇪", "🇧🇴", "🇧🇾", "🇨🇳", "🇨🇰", "🇨🇴", "🇨🇲", "🇨🇦", "🇩🇲", "🇬🇱", "🇬🇦", "🇭🇺", "🇫🇯", "🇱🇾", "🇰🇬", "🇲🇾", "🇳🇦", "🇳🇮", "🇳🇫", "🇲🇸", "🇲🇨", "🇷🇼", "🇷🇺", "🇷🇸", "🇱🇰", "🇨🇭"]
+    @State var emojiCount = 16
+    @State var emojis = ["✈️", "🚗", "🚀", "🛥️", "🚘", "⛵️", "🚂", "🛵", "🚆", "🚇", "🚋", "🚜", "🚕", "🛴", "🛺", "🚲", "🏎️", "🚁", "🚃", "🚓", "🚒", "🚑", "🚌", "🚎", "🏍️", "🛻", "🛞", "🛳️", "🚅", "🛩️", "🚛", "🚙"]
+    @State var mainColor: Color = .red
     var body: some View {
         VStack{
+            Text("Memorize!")
+                .font(.largeTitle)
             ScrollView{
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
                     ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
@@ -22,33 +28,64 @@ struct ContentView: View {
             }
             Spacer()
             HStack{
-                
-                removeButton
+                Spacer(minLength: 85)
+                vechicleThemeButton
                 Spacer()
-                addButton
+                helloweenThemeButton
+                Spacer()
+                flagThemeButton
+                Spacer(minLength: 85)
             }.font(.largeTitle)
         }
         .padding(.horizontal)
-        .foregroundColor(.red)
+        .foregroundColor(mainColor)
     }
-    var removeButton: some View {
-//        var enabled: Bool {emojiCount > 2}
-        return Button {
-            emojiCount -= 1
-        } label: {
-            Image(systemName: "minus.circle.fill")
+    
+    var vechicleThemeButton: some View {
+        Button {
+            emojis = vehicleEmogis.shuffled()
+            mainColor = .red
             
-        }
-//        .disabled(!enabled)
-    }
-    var addButton: some View {
-//        var enabled: Bool {emojiCount < emojis.count}
-        return Button {
-            emojiCount += 1
         } label: {
-            Image(systemName: "plus.circle.fill")
+            VStack {
+                Image(systemName: "car.circle.fill")
+                Text("Transport")
+                    .font(.subheadline)
+                    .frame(width: 80)
+            }
+            .foregroundColor(.red)
         }
-//        .disabled(!enabled)
+    }
+    var helloweenThemeButton: some View {
+        Button {
+            emojis = helloweenEmojis.shuffled()
+            mainColor = .purple
+            
+        } label: {
+            
+            VStack {
+                Image(systemName: "moon.stars.circle.fill")
+                Text("Helloween")
+                    .font(.subheadline)
+                    .frame(width: 80)
+            }
+            .foregroundColor(.purple)
+        }
+    }
+    var flagThemeButton: some View {
+        Button {
+            emojis = flagEmojis.shuffled()
+            mainColor = .green
+            
+        } label: {
+            VStack {
+                Image(systemName: "flag.circle.fill")
+                Text("Flags")
+                    .font(.subheadline)
+                    .frame(width: 80)
+            }
+            .foregroundColor(.green)
+        }
     }
 }
 
